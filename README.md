@@ -1,0 +1,1 @@
+aws ssm parameter provider for [summon](https://github.com/cyberark/summon)
