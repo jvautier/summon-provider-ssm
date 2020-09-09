@@ -20,6 +20,9 @@ if __name__ == '__main__':
         sys.exit(1)
 
     variable = sys.argv[1]
+    prefix=os.environ.get('SUMMON_SSM_PREFIX', "")
+    variable = prefix + variable 
+
     ssm_parameter = ssm.get_parameter(Name=variable,WithDecryption=True)
     value = ssm_parameter.get('Parameter').get('Value')
     if value is None:

@@ -1,12 +1,9 @@
 CLI_NAME = summon-provider-ssm
 
 install: uninstall
-	sudo cp ./$(CLI_NAME) /usr/bin/$(CLI_NAME)
-	sudo chmod +x /usr/bin/$(CLI_NAME)
-
-install-dev: uninstall
-	sudo ln -s $(PWD)/$(CLI_NAME) /usr/bin/$(CLI_NAME)
-	sudo chmod +x /usr/bin/$(CLI_NAME)
+	sudo mkdir -p /usr/local/lib/summon
+	sudo cp ./$(CLI_NAME) /usr/local/lib/summon/ssm
+	sudo chmod +x /usr/local/lib/summon/ssm
 
 uninstall:
-	sudo rm -f /usr/bin/$(CLI_NAME)
+	sudo rm -f /usr/local/lib/summon/ssm
