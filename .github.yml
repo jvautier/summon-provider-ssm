@@ -1,0 +1,8 @@
+---
+fullname: jvautier/summon-provider-ssm
+description: Summon provider for aws ssm
+tags:
+  - summon
+  - ssm
+  - aws
+github: {}
