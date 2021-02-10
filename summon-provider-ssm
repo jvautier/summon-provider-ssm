@@ -1,11 +1,12 @@
 #!/usr/bin/env python
-
 import os
 import sys
+
 
 def write_and_flush(pipe, message):
     pipe.write(message)
     pipe.flush()
+
 
 try:
     import boto3
@@ -20,13 +21,15 @@ if __name__ == '__main__':
         sys.exit(1)
 
     variable = sys.argv[1]
-    prefix=os.environ.get('SUMMON_SSM_PREFIX', "")
-    variable = prefix + variable 
+    prefix = os.environ.get('SUMMON_SSM_PREFIX', "")
+    variable = prefix + variable
 
-    ssm_parameter = ssm.get_parameter(Name=variable,WithDecryption=True)
-    value = ssm_parameter.get('Parameter').get('Value')
-    if value is None:
-        write_and_flush(sys.stderr, '{} could not be retrieved'.format(variable))
+    try:
+        ssm_parameter = ssm.get_parameter(Name=variable, WithDecryption=True)
+        value = ssm_parameter.get('Parameter').get('Value')
+        if value is None:
+            write_and_flush(sys.stderr, '{} could not be retrieved'.format(variable))
+            sys.exit(1)
+        write_and_flush(sys.stdout, value)
+    except:
         sys.exit(1)
-
-    write_and_flush(sys.stdout, value)
